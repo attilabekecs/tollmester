@@ -43,7 +43,6 @@ if(!root) return;   // ⭐ VÉDELEM
   }
 
  function saveToCloud(){
-  const root = getState();
 
   // ⭐ új tömb létrehozása (fontos!)
   root.chapters = [...state.items];

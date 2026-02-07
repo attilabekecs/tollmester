@@ -2,7 +2,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyySleQJzYxIrcsCAjWTQVY
 
 let STATE = null;
 
-export function nowTS(){
+export function nowTs(){
   return Date.now();
 }
 

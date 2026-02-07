@@ -1,4 +1,4 @@
-import { getState, setState, nowTs } from "../state/storage.js";
+import { getState, setState, nowTs } from "../state/storage.js?v=3";
 
 export function initChaptersCore(){
 

@@ -45,8 +45,8 @@ export function getState(){
 
 /* ===== SET + AUTO FELHŐ MENTÉS ===== */
 export async function setState(next){
-  STATE = next;
-  STATE.updated = Date.now();
+  // ⭐ fontos: új objektum létrehozása
+  STATE = { ...next, updated: Date.now() };
 
   try{
     await fetch(API_URL, {

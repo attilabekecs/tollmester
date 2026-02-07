@@ -1,7 +1,7 @@
 import { loadCloudState } from "./state/storage.js?v=3";
 import { initHeader } from "./ui/header.js";
 import { initDialogs } from "./ui/dialogs.js";
-import { initCharacters } from "./features/characters.js?v=2;
+import { initCharacters } from "./features/characters.js?v=2";
 import { initChaptersCore } from "./chapters/chapters.core.js";
 import { initChapterNotes } from "./chapters/chapters.notes.js";
 import { seedIfEmpty } from "./state/seed.js";

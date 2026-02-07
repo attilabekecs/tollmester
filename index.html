@@ -1,1 +1,129 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TollMester</title>
+
+  <!-- ===== CSS modulok ===== -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/preview.css">
+</head>
+
+<body data-theme="dark">
+<div class="app">
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="brand"><div class="logo"></div> TollMester</div>
+  <div class="toolbar">
+    <input id="globalSearch" class="input" placeholder="Gyors keresés…" />
+    <button class="btn small ghost" id="themeToggle">🌗 Téma</button>
+    <button class="btn small" id="exportBtn">⬇️ Export</button>
+    <label class="btn small ghost">
+      ⬆️ Import
+      <input id="importInput" type="file" hidden>
+    </label>
+    <button class="btn small danger" id="resetBtn">🗑️ Reset</button>
+  </div>
+</header>
+
+<!-- ================= APP LAYOUT ================= -->
+<div class="layout">
+<div class="workbench panel">
+
+<!-- ===== SIDEBAR ===== -->
+<nav>
+  <a class="nav-item" data-route="characters" aria-current="page">🧑‍🎤 Szereplők</a>
+  <a class="nav-item" data-route="locations">📍 Helyszínek</a>
+  <a class="nav-item" data-route="powers">✨ Erők</a>
+  <a class="nav-item" data-route="timeline">🗓️ Idővonal</a>
+  <a class="nav-item" data-route="chapters">📚 Fejezetek</a>
+  <a class="nav-item" data-route="notes">📝 Jegyzetek</a>
+  <a class="nav-item" data-route="graph">🕸️ Kapcsolati háló</a>
+  <a class="nav-item" data-route="preview">📖 Előnézet</a>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<main>
+
+<!-- CHARACTERS -->
+<section class="view active" id="view-characters">
+  <div class="panel">
+    <div class="head">
+      <div class="row">
+        <input id="charSearch" class="input" placeholder="Keresés…" />
+        <select id="charSort" class="input">
+          <option value="name">Név szerint</option>
+          <option value="role">Szerep szerint</option>
+          <option value="created">Létrehozás</option>
+        </select>
+      </div>
+      <button class="btn primary" id="addCharacter">+ Új szereplő</button>
+    </div>
+    <div class="body">
+      <div id="characterCards" class="cards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS (editor ide marad) -->
+<section class="view" id="view-chapters">
+  <div class="chapters">
+    <div class="editor">
+      <div class="toolbar row">
+        <button class="btn small primary" id="addChapter">+ Új</button>
+        <select id="chapterSelect" class="input small"></select>
+        <input id="chapterTitle" class="input" placeholder="Fejezet címe" />
+        <span class="spacer"></span>
+        <button class="btn small" id="chapterSave">💾 Mentés</button>
+      </div>
+
+      <div class="editor-area">
+        <div class="paper">
+          <div class="paper-inner">
+            <div id="chapterEditor" class="rte" contenteditable="true"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="chapter-notes-sidebar">
+        <div id="cnsList" class="cns-list"></div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+</div>
+
+<!-- ===== NAV ROUTER ===== -->
+<script>
+(function(){
+  const nav=document.querySelector('.workbench nav');
+  function show(r){
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+r)?.classList.add('active');
+  }
+  nav.addEventListener('click',e=>{
+    const a=e.target.closest('.nav-item');
+    if(!a)return;
+    location.hash=a.dataset.route;
+  });
+  window.addEventListener('hashchange',()=>show(location.hash.replace('#','')));
+})();
+</script>
+
+<!-- ===== JS ENTRY ===== -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>
 

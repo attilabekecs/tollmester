@@ -1,7 +1,8 @@
+import { getState, setState, nowTs } from "../state/storage.js";
+
 export function initChaptersCore(){
 
   const $  = (s,p=document)=>p.querySelector(s);
-  const $$ = (s,p=document)=>Array.from(p.querySelectorAll(s));
 
   const elSelect = $('#chapterSelect');
   const elTitle  = $('#chapterTitle');
@@ -9,32 +10,38 @@ export function initChaptersCore(){
   const elSave   = $('#chapterSave');
   const elAdd    = $('#addChapter');
 
-  const LS_KEY = 'tollmester.chapters.v2';
-
+  // 🔹 UID helper (vissza kellett hozni)
   function uid(){ return Math.random().toString(36).slice(2,10); }
 
-  function load(){
-    try { return JSON.parse(localStorage.getItem(LS_KEY)); }
-    catch { return null; }
-  }
+  // 🔹 Cloud DB betöltés
+  let root = getState();
 
-  function save(state){
-    localStorage.setItem(LS_KEY, JSON.stringify(state));
-  }
-
-  let state = load() || {
-    items:[{
-      id:uid(),
+  if(!root.chapters || root.chapters.length === 0){
+    root.chapters = [{
+      id: uid(),
       title:"Új fejezet",
-      html:"<p>Itt kezdheted a történetet…</p>"
-    }],
-    activeId:null
+      html:"<p>Itt kezdheted a történetet…</p>",
+      created: nowTs(),
+      updated: nowTs()
+    }];
+    setState(root);
+  }
+
+  let state = {
+    items: root.chapters,
+    activeId: root.chapters[0]?.id
   };
 
   if(!state.activeId) state.activeId = state.items[0].id;
 
   function current(){
     return state.items.find(x=>x.id===state.activeId);
+  }
+
+  function saveToCloud(){
+    const root = getState();
+    root.chapters = state.items;
+    setState(root);
   }
 
   function renderSelect(){
@@ -56,24 +63,32 @@ export function initChaptersCore(){
     elEditor.innerHTML=it.html;
   }
 
+  // ➕ Új fejezet
   elAdd?.addEventListener('click', ()=>{
     const it={
       id:uid(),
       title:"Új fejezet",
-      html:"<p>Új fejezet…</p>"
+      html:"<p>Új fejezet…</p>",
+      created: nowTs(),
+      updated: nowTs()
     };
+
     state.items.push(it);
     state.activeId=it.id;
-    save(state);
+
+    saveToCloud();
     renderSelect();
     setActive(it.id);
   });
 
+  // 💾 Mentés
   elSave?.addEventListener('click', ()=>{
     const it=current();
     it.title=elTitle.value;
     it.html=elEditor.innerHTML;
-    save(state);
+    it.updated = nowTs();
+
+    saveToCloud();
     alert("Fejezet mentve");
   });
 

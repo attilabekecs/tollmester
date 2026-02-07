@@ -2,6 +2,10 @@ const API_URL = "https://script.google.com/macros/s/AKfycbyySleQJzYxIrcsCAjWTQVY
 
 let STATE = null;
 
+export function nowTS(){
+  return Date.now();
+}
+
 /* ===== ÜRES STATE ===== */
 function getEmptyState(){
   return {

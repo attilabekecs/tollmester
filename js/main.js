@@ -59,3 +59,13 @@ window.importOldTollmester = async function(oldData){
   await setState(NEW_STATE);
   alert("Import kész! Frissítsd az oldalt.");
 };
+
+// ⭐ FILE IMPORT TOOL
+window.importFile = async function(file){
+
+  const text = await file.text();
+  const oldData = JSON.parse(text);
+
+  await importOldTollmester(oldData);
+};
+

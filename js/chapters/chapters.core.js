@@ -2,6 +2,10 @@ import { getState, setState, nowTs } from "../state/storage.js";
 
 export function initChaptersCore(){
 
+  let root = getState();
+if(!root) return;   // ⭐ VÉDELEM
+
+
   const $  = (s,p=document)=>p.querySelector(s);
 
   const elSelect = $('#chapterSelect');

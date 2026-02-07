@@ -2,6 +2,10 @@ import { getState, setState, nowTs } from "../state/storage.js";
 
 export function initChapterNotes(){
 
+  let root = getState();
+if(!root) return;   // ⭐ VÉDELEM
+
+
   const listEl = document.getElementById('cnsList');
   const chapterSelect = document.getElementById('chapterSelect');
 

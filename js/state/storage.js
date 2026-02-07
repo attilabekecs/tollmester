@@ -6,6 +6,10 @@ export function nowTs(){
   return Date.now();
 }
 
+export function uid(){
+  return Math.random().toString(36).slice(2,10);
+}
+
 /* ===== ÜRES STATE ===== */
 function getEmptyState(){
   return {

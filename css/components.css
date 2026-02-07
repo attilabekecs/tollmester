@@ -1,1 +1,45 @@
+.cards{
+  display:grid;
+  gap:16px;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+}
+
+.card{
+  border-radius:18px;
+  overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--border);
+  cursor:pointer;
+}
+
+.card .avatar{
+  width:100%;
+  aspect-ratio:3/5;
+  background:#0d1017 center/cover no-repeat;
+}
+
+.card .char-name{
+  padding:10px;
+  text-align:center;
+  font-weight:600;
+  background:#151a22;
+}
+
+/* timeline */
+.timeline{position:relative;padding-left:18px}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:9px;top:0;bottom:0;
+  width:2px;
+  background:var(--primary);
+}
+
+/* modal full screen */
+#characterModal{
+  width:100vw;
+  height:100dvh;
+  background:var(--panel);
+  border:none;
+}
 

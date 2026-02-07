@@ -1,4 +1,4 @@
-import { getState, setState, uid, nowTs } from "./storage.js";
+import { getState, setState, uid, nowTs } from "./storage.js?v=3";
 
 export function seedIfEmpty(){
   const st = getState();

@@ -1,4 +1,4 @@
-import { loadCloudState } from "./state/storage.js";
+import { loadCloudState } from "./state/storage.js?v=3";
 import { initHeader } from "./ui/header.js";
 import { initDialogs } from "./ui/dialogs.js";
 import { initCharacters } from "./features/characters.js";

@@ -1,42 +1,56 @@
-export const LS_KEY = 'writer-helper-v3';
+const API_URL = "https://script.google.com/macros/s/AKfycbyySleQJzYxIrcsCAjWTQVYEX-8SNSu8iyNjiXF3TBJJewB0JzhcY8u7cN4EDFkcsUO/exec";
 
-export function nowTs(){ return Date.now(); }
-export function uid(){ return Math.random().toString(36).slice(2,10); }
-export function clamp(v,min,max){ return Math.max(min, Math.min(max, v)); }
+/* ===============================
+   STATE BETÖLTÉS (Google Drive)
+   =============================== */
+export async function getState(){
+  try{
+    const res = await fetch(API_URL + "?t=" + Date.now()); // cache kerülés
+    const text = await res.text();
 
-export function getState(){
-  let s = localStorage.getItem(LS_KEY);
-  if(!s){
-    const init = {
-      created: nowTs(),
-      updated: nowTs(),
-      characters: [],
-      locations: [],
-      powers: [],
-      events: [],
-      notes: [],
-      chapters: []
-    };
-    localStorage.setItem(LS_KEY, JSON.stringify(init));
-    return init;
-  }
-  try { return JSON.parse(s); } catch(e){
-    const init = {
-      created: nowTs(),
-      updated: nowTs(),
-      characters: [],
-      locations: [],
-      powers: [],
-      events: [],
-      notes: [],
-      chapters: []
-    };
-    localStorage.setItem(LS_KEY, JSON.stringify(init));
-    return init;
+    // ha még üres a fájl
+    if(!text || text.trim() === ""){
+      return getEmptyState();
+    }
+
+    return JSON.parse(text);
+  }catch(err){
+    console.error("Cloud load error:", err);
+    alert("Nem sikerült betölteni a felhő adatokat.");
+    return getEmptyState();
   }
 }
 
-export function setState(next){
-  next.updated = nowTs();
-  localStorage.setItem(LS_KEY, JSON.stringify(next));
+/* ===============================
+   STATE MENTÉS (Google Drive)
+   =============================== */
+export async function setState(data){
+  try{
+    await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(data),
+    });
+  }catch(err){
+    console.error("Cloud save error:", err);
+    alert("Nem sikerült menteni a felhőbe.");
+  }
+}
+
+/* ===============================
+   ÜRES STATE fallback
+   =============================== */
+function getEmptyState(){
+  return {
+    created: Date.now(),
+    updated: Date.now(),
+    characters: [],
+    locations: [],
+    powers: [],
+    events: [],
+    notes: [],
+    chapters: []
+  };
 }

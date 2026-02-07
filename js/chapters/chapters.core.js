@@ -42,11 +42,15 @@ if(!root) return;   // ⭐ VÉDELEM
     return state.items.find(x=>x.id===state.activeId);
   }
 
-  function saveToCloud(){
-    const root = getState();
-    root.chapters = state.items;
-    setState(root);
-  }
+ function saveToCloud(){
+  const root = getState();
+
+  // ⭐ új tömb létrehozása (fontos!)
+  root.chapters = [...state.items];
+
+  setState(root);
+}
+
 
   function renderSelect(){
     if(!elSelect) return;

@@ -18,7 +18,6 @@ if(!root) return;   // ⭐ VÉDELEM
   function uid(){ return Math.random().toString(36).slice(2,10); }
 
   // 🔹 Cloud DB betöltés
-  let root = getState();
 
   if(!root.chapters || root.chapters.length === 0){
     root.chapters = [{

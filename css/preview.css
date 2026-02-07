@@ -1,0 +1,19 @@
+.book-wrap{display:flex;flex-direction:column;height:100%}
+
+.book{
+  flex:1;
+  overflow:auto;
+  padding:14px;
+}
+
+.page{
+  background:#faf7ef;
+  border-radius:16px;
+  padding:48px;
+  font:17px Georgia,serif;
+}
+
+@media print{
+  header,nav{display:none}
+  .page{box-shadow:none}
+}

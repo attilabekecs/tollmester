@@ -1,25 +1,39 @@
 /* ===============================
-   CHARACTERS VIEW SCROLL FIX
-   Csak a kártya grid görgethető
+   CHARACTERS VIEW – HELYI SCROLL
    =============================== */
 
-/* a characters oldal fő panelje */
+/* A teljes characters view kapjon fix magasságot */
+#charactersView{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+/* A panel töltse ki */
 #charactersView .panel{
+  flex:1;
   display:flex;
   flex-direction:column;
-  height:100%;
+  min-height:0;   /* ⭐ EZ NAGYON FONTOS */
 }
 
-/* a felső toolbar alatt lévő rész */
+/* Toolbar marad fix magasság */
+#charactersView .toolbar{
+  flex-shrink:0;
+}
+
+/* A body kitölti a maradék helyet */
 #charactersView .body{
+  flex:1;
   display:flex;
   flex-direction:column;
-  height:100%;
+  min-height:0;   /* ⭐ EZ IS FONTOS */
 }
 
-/* ⭐ A KÁRTYÁK CONTAINER – CSAK EZ GÖRGET */
+/* ⭐ CSAK A KÁRTYA LISTA GÖRGET */
 #characterCards{
   flex:1;
+  min-height:0;
   overflow-y:auto;
 
   padding:20px;

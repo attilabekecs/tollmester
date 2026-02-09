@@ -70,6 +70,49 @@
     </div>
   </div>
 </section>
+  
+  <dialog id="characterDialog" class="editor-dialog">
+  <h2>Szereplő szerkesztése</h2>
+
+  <label>Név</label>
+  <input id="chName" type="text">
+
+  <label>Kép URL</label>
+  <input id="chImage" type="text">
+
+  <label>Leírás</label>
+  <textarea id="chBio" rows="6"></textarea>
+
+  <div class="dialog-actions">
+    <button id="chCancel">Mégse</button>
+    <button id="chSave">Mentés</button>
+  </div>
+</dialog>
+
+  <dialog id="characterProfile" class="profile-dialog">
+  <div class="profile-grid">
+    
+    <img id="profileImage">
+
+    <div class="profile-info">
+      <h2 id="profileName"></h2>
+      <p id="profileBio"></p>
+
+      <div class="profile-meta">
+        <span id="profileCreated"></span>
+        <span id="profileUpdated"></span>
+      </div>
+
+      <div class="profile-actions">
+        <button id="profileEdit">Szerkesztés</button>
+        <button id="profileDelete">Törlés</button>
+        <button id="profileClose">Bezár</button>
+      </div>
+    </div>
+
+  </div>
+</dialog>
+
 
 <!-- CHAPTERS (editor ide marad) -->
 <section class="view" id="view-chapters">
